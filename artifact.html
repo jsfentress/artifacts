@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GM Cyber Capability Development Roadmap</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.5; background: #f7f9fc; color: #333; }
+    h1, h2 { color: #0b3c5d; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { padding: 8px 12px; border: 1px solid #ccc; }
+    th { background: #e5edf6; cursor: pointer; }
+    tr:nth-child(even) { background: #fafafa; }
+    .small { font-size: 0.85em; color: #666; }
+    details { margin-bottom: 12px; }
+    summary { font-weight: bold; cursor: pointer; }
+    .footnotes { font-size: 0.8em; margin-top: 20px; }
+    .footnotes p { margin: 2px 0; }
+  </style>
+  <script>
+    // Simple table sort function
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("evidenceTable");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch= true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>GM Cyber Capability Development Roadmap</h1>
+  <p>This interactive brief summarizes recent publicly reported indicators of cyber tension at General Motors (GM.com), identifies capability gaps, and maps them to specific SANS training courses. The goal is to help the CISO build a roadmap that combines targeted hiring with up‑skilling.</p>
+
+  <h2>Public Indicators & Evidence</h2>
+  <p>Click column headers to sort. Each row links a recent public signal to a likely tension and the recommended SANS course.</p>
+  <table id="evidenceTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Date</th>
+        <th onclick="sortTable(1)">Public Signal</th>
+        <th onclick="sortTable(2)">Inferred Tension</th>
+        <th onclick="sortTable(3)">Mapped Course</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2025‑07‑30</td>
+        <td>Nebraska AG files lawsuit alleging GM and OnStar sold telematics data【312093464664716†L326-L337】</td>
+        <td>Data governance & incident response gaps (privacy compliance)</td>
+        <td>SEC504 & MGT512</td>
+      </tr>
+      <tr>
+        <td>2025‑08‑07</td>
+        <td>GM & Hyundai announce co‑development of five vehicles【122501034165065†L93-L120】</td>
+        <td>Expanded supply‑chain attack surface; partner risk</td>
+        <td>SEC510 & SEC588</td>
+      </tr>
+      <tr>
+        <td>2025‑07‑29</td>
+        <td>GM Financial posts Senior Cybersecurity Engineer – Database role【548506560006845†L60-L104】</td>
+        <td>Hiring indicates need for improved SIEM/DLP & database security; potential skills gap</td>
+        <td>FOR578 & SEC504</td>
+      </tr>
+      <tr>
+        <td>2025‑08‑06</td>
+        <td>New state privacy laws in Minnesota & California require data inventories and audits【312093464664716†L126-L159】</td>
+        <td>Compliance workload increasing; need for leadership & governance training</td>
+        <td>MGT512</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Capability Gaps & Hiring Insights</h2>
+  <details>
+    <summary>Hiring signals</summary>
+    <p>The fresh posting for a <em>Senior Cybersecurity Engineer – Database</em> on 29 July 2025 suggests GM is bolstering its data security and SIEM capabilities【548506560006845†L60-L104】. However, a single hire may not cover the breadth of responsibilities described (database activity monitoring, DLP, incident response and mentoring). The absence of concurrent postings for incident‑response leads or cloud‑security architects indicates potential skills gaps in those areas.</p>
+  </details>
+  <details>
+    <summary>Regulatory & compliance gaps</summary>
+    <p>The Nebraska AG complaint accuses GM of selling telematics data without consent【312093464664716†L326-L337】. Combined with the Minnesota and California privacy statutes requiring risk assessments and audits【312093464664716†L126-L159】, GM faces increased scrutiny. A comprehensive data inventory and governance program is essential to meet these obligations.</p>
+  </details>
+
+  <h2>Recommended Course Sequence</h2>
+  <p>The following SANS courses align with the tensions identified above. Click each course to view a brief description.</p>
+  <details>
+    <summary><strong>SEC504: Hacker Tools, Techniques, Exploits & Incident Handling</strong></summary>
+    <p>Prepares security teams to detect, respond to and recover from security incidents. It covers attacker tools, live forensics and threat containment, making it ideal for addressing data‑breach scenarios like those alleged in the Nebraska lawsuit.</p>
+  </details>
+  <details>
+    <summary><strong>MGT512: Security Leadership Essentials for Managers</strong></summary>
+    <p>Equips managers with the skills to build security programs, translate regulatory requirements into policy and communicate risk to executives. Useful for navigating new state privacy laws and strengthening governance.</p>
+  </details>
+  <details>
+    <summary><strong>SEC510: Public Cloud Security</strong> & <strong>SEC588: Cloud Penetration Testing</strong></summary>
+    <p>These courses address securing and testing cloud and API environments. As GM expands through joint ventures and telematics services, cloud‑native security skills are critical to protect shared platforms.</p>
+  </details>
+  <details>
+    <summary><strong>FOR578: Cyber Threat Intelligence</strong></summary>
+    <p>Focuses on building and operationalizing threat intelligence. For organizations hiring database and SIEM engineers, this course helps analysts turn logs and threat data into actionable detection rules.</p>
+  </details>
+
+  <h2>Draft Capability Development Roadmap</h2>
+  <p>This phased plan combines immediate hiring with targeted training to address identified tensions.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Timeline</th>
+        <th>Key Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Immediate (0‑3 months)</strong></td>
+        <td>Aug–Oct 2025</td>
+        <td>
+          <ul>
+            <li>Onboard the new Senior Cybersecurity Engineer and assign them to develop SIEM & DLP rules.</li>
+            <li>Enroll at least two incident‑response team members in <em>SEC504</em> to improve breach handling.</li>
+            <li>Conduct a rapid data inventory and privacy gap assessment to respond to the Nebraska lawsuit and state laws.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Mid‑Term (3‑6 months)</strong></td>
+        <td>Nov 2025–Jan 2026</td>
+        <td>
+          <ul>
+            <li>Hire or designate a privacy compliance lead to coordinate audits and implement recommendations from <em>MGT512</em>.</li>
+            <li>Send cloud and API engineers to <em>SEC510</em> or <em>SEC588</em> for secure design and penetration testing.</li>
+            <li>Create vendor‑risk assessment processes for new joint ventures (e.g., Hyundai collaboration).</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Long‑Term (6‑12 months)</strong></td>
+        <td>Feb–Aug 2026</td>
+        <td>
+          <ul>
+            <li>Build an internal threat‑intelligence program using skills from <em>FOR578</em>, producing proactive detection rules.</li>
+            <li>Review and update telematics data‑sharing agreements to align with privacy best practices.</li>
+            <li>Institutionalize regular tabletop exercises that simulate breaches across manufacturing plants and telematics services.</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footnotes">
+    <p><strong>Sources:</strong></p>
+    <p>[1] Nebraska AG lawsuit details – JDSupra newsletter (Aug 2025)【312093464664716†L326-L337】.</p>
+    <p>[2] GM‑Hyundai partnership announcement (WFMJ, Aug 7 2025)【122501034165065†L93-L120】.</p>
+    <p>[3] GM Financial hiring post for Senior Cybersecurity Engineer (The Muse, July 29 2025)【548506560006845†L60-L104】.</p>
+    <p>[4] Minnesota & California privacy regulations – Blank Rome newsletter【312093464664716†L126-L159】.</p>
+  </div>
+
+</body>
+</html>
